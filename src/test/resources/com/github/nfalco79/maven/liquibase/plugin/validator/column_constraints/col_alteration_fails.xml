@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="changeset_base" author="aut">
+        <createTable tableName="t1">
+            <column name="col1" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="col1_is_primarykey"/>
+            </column>
+            <column name="col2" type="VARCHAR(30)"/>
+            <column name="col3" type="VARCHAR(30)" defaultValue="">
+                <constraints nullable="false" /> <!-- nullable doesn't interfere with column alteration -->
+            </column>
+        </createTable>
+        <renameColumn tableName="t1" oldColumnName="col3" newColumnName="col3_bis"/>
+        <addUniqueConstraint tableName="t1" columnNames="col3_bis" />
+    </changeSet>
+    <changeSet id="changeset_wrong1" author="aut">
+        <renameColumn tableName="t1" oldColumnName="col1" newColumnName="col1_bis"/>
+    </changeSet>
+    <changeSet id="changeset_wrong2" author="aut">
+        <modifyDataType tableName="t1" columnName="col3_bis" newDataType="BIGINT"/>
+    </changeSet>
+</databaseChangeLog>

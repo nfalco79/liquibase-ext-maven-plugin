@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="com.acme.core"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="123-1" author="XXX">
+        <createSequence sequenceName="my_sequence" incrementBy="50" startValue="50" />
+    </changeSet>
+
+    <changeSet id="123-2" author="YYY" dbms="oracle">
+        <createSequence sequenceName="my_sequence" incrementBy="50" startValue="50" />
+    </changeSet>
+
+    <changeSet id="123-3" author="ZZZ">
+        <preConditions>
+            <dbms type="oracle"/>
+        </preConditions>
+        <createSequence sequenceName="my_sequence" incrementBy="50" startValue="50" />
+    </changeSet>
+</databaseChangeLog>

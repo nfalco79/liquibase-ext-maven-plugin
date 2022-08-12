@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:nfalco79="http://www.liquibase.org/xml/ns/dbchangelog-ext/nfalco79"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext/nfalco79 https://www.liquibase.org/liquibase/ext/nfalco79/dbchangelog-nfalco79.xsd">
+
+    <changeSet id="changeset1" author="aut">
+        <createTable tableName="t1">
+            <column name="col1" type="CLOB(2147483647)" />
+            <column name="col2" type="CLOB(2147483647)" />
+            <column name="col3" type="CLOB(2147483647)" />
+            <column name="col4" type="CLOB(2147483647)" />
+            <column name="col5" type="CLOB(2147483647)" />
+            <column name="col6" type="CLOB(2147483647)" />
+            <column name="col7" type="CLOB(2147483647)" />
+            <column name="col8" type="CLOB(2147483647)" />
+            <column name="col9" type="CLOB(2147483647)" />
+            <column name="col10" type="CLOB(2147483647)" />
+            <column name="col11" type="CLOB(4190000)" />
+            <column name="col12" type="CLOB(2147483647)" />
+        </createTable>
+        <addColumn tableName="t1">
+            <column name="col13" type="CLOB(2147483647)" />
+        </addColumn>
+        <nfalco79:resizeDataType tableName="t1" columnName="col11" newDataType="CLOB(2147483647)" oldDataType="CLOB" />
+    </changeSet>
+</databaseChangeLog>

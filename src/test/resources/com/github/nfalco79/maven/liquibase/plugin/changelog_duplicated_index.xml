@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="com.acme.core"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="123-1" author="YYY">
+        <createTable tableName="table1">
+            <column name="tenant_id" type="INTEGER">
+                <constraints nullable="false" />
+            </column>
+            <column name="t_key" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createIndex tableName="table1"
+            indexName="i_table_tenant_idx">
+            <column name="tenant_id" />
+        </createIndex>
+        <createIndex tableName="table1"
+            indexName="i_table_key_idx">
+            <column name="t_key" />
+        </createIndex>
+    </changeSet>
+    <changeSet id="123-2" author="YYY">
+        <dropIndex tableName="table1"
+            indexName="i_table_tenant_idx" />
+        <createIndex tableName="table1"
+            indexName="i_table_key_idx2">
+            <column name="t_key" />
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

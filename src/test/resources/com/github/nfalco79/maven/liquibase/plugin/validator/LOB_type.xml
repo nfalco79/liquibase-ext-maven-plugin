@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:nfalco79="http://www.liquibase.org/xml/ns/dbchangelog-ext/nfalco79"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext/nfalco79 https://www.liquibase.org/liquibase/ext/nfalco79/dbchangelog-nfalco79.xsd">
+
+    <changeSet id="compliant_lob_resize" author="aut">
+        <nfalco79:resizeDataType tableName="tablex" columnName="id" newDataType="BLOB(3000)" oldDataType="BLOB" />
+    </changeSet>
+
+    <changeSet id="compliant_lob_modify" author="aut">
+        <modifyDataType columnName="id" newDataType="CLOB(30040)" tableName="person"/>
+    </changeSet>
+
+    <changeSet id="compliant_lob_add" author="aut">
+        <addColumn tableName="goal2table">
+            <column name="column_id" type="NCLOB(30006)">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="compliant_lob_create" author="aut">
+        <createTable tableName="goal1table">
+            <column name="column_id" type="VARCHAR(30)" />
+            <column name="t_value" type="BLOB(1024)" />
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="lob_no_dimension_resize" author="aut">
+        <nfalco79:resizeDataType tableName="tablex" columnName="id" newDataType="CLOB" oldDataType="CLOB" />
+    </changeSet>
+
+    <changeSet id="lob_no_dimension_modify" author="aut">
+        <modifyDataType columnName="idd" newDataType="CHAR" tableName="person"/>
+        <modifyDataType columnName="id" newDataType="BLOB" tableName="person"/>
+    </changeSet>
+
+    <changeSet id="lob_no_dimension_add" author="aut">
+        <addColumn tableName="goal2table">
+            <column name="column_id" type="BLOB">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="lob_no_dimension_create" author="aut">
+        <createTable tableName="goal1table">
+            <column name="t_value" type="NCLOB" />
+            <column name="column_id" type="VARCHAR(30)" />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

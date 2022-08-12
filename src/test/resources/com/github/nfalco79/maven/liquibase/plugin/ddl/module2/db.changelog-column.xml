@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="module2"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="column1" author="Falco Nikolas">
+        <createTable tableName="table2">
+            <column name="tenant_id" type="VARCHAR(10)" />
+            <column name="key" type="VARCHAR(10)" />
+        </createTable>
+        <createView viewName="view1">
+        <![CDATA[
+            SELECT * FROM table1
+        ]]>
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>

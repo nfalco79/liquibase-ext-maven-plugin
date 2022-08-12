@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="id" author="author">
+        <addColumn tableName="t1">
+            <column name="numeric1" type="NUMERIC(18,5)"
+                defaultValue="1" />
+            <column name="numeric2" type="NUMERIC(18,5)" />
+            <column name="numeric3" type="NUMERIC(18,5)"
+                defaultValueNumeric="1" />
+        </addColumn>
+        <addColumn tableName="t1">
+            <column name="new" type="BOOLEAN" defaultValue="true" />
+        </addColumn>
+        <addColumn tableName="t1">
+            <column name="duedate" type="DATE"
+                defaultValue="2000-10-10" />
+        </addColumn>
+        <addColumn tableName="t1">
+            <column name="text" type="CLOB(2000)"
+                defaultValue="lorem ipsum" />
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

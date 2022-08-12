@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="come.amorato.core"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="lowecase_columnnames" author="XXX">
+        <addPrimaryKey columnNames="tenant_Id, t_key"
+            constraintName="cat_featurecategory_pkey"
+            tableName="cat_featurecategory" />
+        <addForeignKeyConstraint
+            baseColumnNames="tenant_Id, creditcardcategory_fk"
+            baseTableName="cat_creditcard"
+            constraintName="fk_cat_creditcard_tenant_id"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="NO ACTION" onUpdate="NO ACTION"
+            referencedColumnNames="tenant_id, t_key"
+            referencedTableName="cat_creditcardcategory" />
+    </changeSet>
+    <changeSet id="length_columnnames" author="XXX">
+        <addPrimaryKey
+            columnNames="tenant_Id, seqseqseqseqseqseqseqseqseqseqseqseqseqseqseqseq"
+            constraintName="cat_featurecategory_pkey"
+            tableName="cat_featurecategory" />
+        <addForeignKeyConstraint
+            baseColumnNames="seqseqseqseqseqseqseqseqseqseqseqseqseqseqseqseq, creditcardcategory_fk"
+            baseTableName="cat_creditcard"
+            constraintName="fk_cat_creditcard_tenant_id"
+            deferrable="false" initiallyDeferred="false"
+            onDelete="NO ACTION" onUpdate="NO ACTION"
+            referencedColumnNames="tenant_id, t_key"
+            referencedTableName="cat_creditcardcategory" />
+    </changeSet>
+</databaseChangeLog>

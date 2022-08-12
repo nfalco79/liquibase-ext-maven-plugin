@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="module1"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="column1" author="Falco Nikolas">
+        <createTable tableName="table1">
+            <column name="tenant_id" type="VARCHAR(10)" />
+            <column name="key" type="VARCHAR(10)" />
+        </createTable>
+        <addNotNullConstraint columnDataType="VARCHAR(10)" columnName="tenant_id" tableName="table1"/>
+        <addNotNullConstraint columnDataType="VARCHAR(10)" columnName="key" tableName="table1"/>
+        <createTable tableName="ref_table1">
+            <column name="tenant_id" type="VARCHAR(10)" />
+            <column name="ref_key" type="VARCHAR(10)" />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

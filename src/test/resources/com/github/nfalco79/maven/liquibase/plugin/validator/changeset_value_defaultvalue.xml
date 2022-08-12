@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="wrong_valueboolean" author="YYY">
+        <insert tableName="table">
+            <column name="tenant_id" value="1" />
+            <column name="col1" value="true" />
+            <column name="col2" valueNumeric="1" />
+            <column name="col3" valueDate="2020-10-01" />
+        </insert>
+    </changeSet>
+    <changeSet id="compliant_value_attributes" author="YYY">
+        <insert tableName="table">
+            <column name="tenant_id" value="1" />
+            <column name="col1" valueBoolean="true" />
+            <column name="col2" valueNumeric="1" />
+            <column name="col3" valueDate="2020-10-01" />
+            <column name="col4" valueDate="2018-02-04 17:03:47.501" />
+            <column name="jsonvalue" valueBlobFile="configuration/meeting/availableValues/product.json"/>
+        </insert>
+    </changeSet>
+    <changeSet id="wrong_valuedate" author="YYY">
+        <insert tableName="table">
+            <column name="tenant_id" value="1" />
+            <column name="col1" valueBoolean="true" />
+            <column name="col2" valueNumeric="1" />
+            <column name="col3" value="2020-10-01" />
+            <column name="col4" value="2018-02-04 17:03:47.501" />
+        </insert>
+    </changeSet>
+    <changeSet id="wrong_valuenumeric" author="YYY">
+        <insert tableName="table">
+            <column name="tenant_id" value="1" />
+            <column name="col1" valueBoolean="true" />
+            <column name="col2" value="-4.734" />
+            <column name="col3" valueDate="2020-10-01" />
+        </insert>
+    </changeSet>
+    <changeSet id="wrong_defaultvaluenumeric" author="YYY">
+        <insert tableName="table">
+            <column name="tenant_id" value="1" />
+            <column name="col1" defaultValueBoolean="true" />
+            <column name="col2" defaultValue="-13.45" />
+            <column name="col3" defaultValueDate="2020-10-01" />
+        </insert>
+    </changeSet>
+    <changeSet id="addcolumn_wrong_defaultvaluenumeric" author="YYY">
+        <addColumn tableName="table">
+            <column name="priority" type="INTEGER" defaultValue="30414093201713378043612608166064768844377641568960512000000000000" />
+        </addColumn>
+    </changeSet>
+    <changeSet id="createtable_wrong_defaultvaluedate" author="YYY">
+        <createTable tableName="table">
+            <column name="tenant_id" type="VARCHAR(31)" />
+            <column name="col_date" defaultValue="2018-02-04 17:03:47.501" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

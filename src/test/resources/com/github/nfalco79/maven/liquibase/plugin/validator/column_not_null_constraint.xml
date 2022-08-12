@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="add_column_ok" author="aut">
+        <addColumn tableName="t1">
+            <column name="column1" type="BIGINT" defaultValueNumeric="0">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add_column_without_default_value" author="aut">
+        <addColumn tableName="t2">
+            <column name="column2" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="add_not_null_invalid" author="aut">
+        <addNotNullConstraint columnDataType="VARCHAR(30)"
+        columnName="column_id"
+        tableName="goal1table"/>
+    </changeSet>
+    <changeSet id="add_not_null_wrong_order" author="aut">
+        <addNotNullConstraint columnDataType="VARCHAR(30)"
+        columnName="column_id"
+        tableName="goal1table"/>
+
+        <createTable tableName="goal1table">
+            <column name="t_value" type="VARCHAR(255)" />
+            <column name="column_id" type="VARCHAR(30)" />
+        </createTable>
+    </changeSet>
+    <changeSet id="add_not_null_with_add_column" author="aut">
+        <createTable tableName="goal1table">
+            <column name="t_value" type="VARCHAR(255)" />
+            <column name="column_id" type="VARCHAR(30)" />
+        </createTable>
+
+        <addColumn tableName="goal2table">
+            <column name="column_id" type="VARCHAR(30)">
+            </column>
+        </addColumn>
+
+        <addNotNullConstraint columnDataType="VARCHAR(30)"
+        columnName="column_id"
+        tableName="goal2table"/>
+    </changeSet>
+    <changeSet id="add_not_null_create_table" author="aut">
+        <createTable tableName="goal1table">
+            <column name="t_value" type="VARCHAR(255)" />
+            <column name="column_id" type="VARCHAR(30)" />
+        </createTable>
+
+        <addNotNullConstraint columnDataType="VARCHAR(30)"
+        columnName="column_id"
+        tableName="goal1table"/>
+    </changeSet>
+    <changeSet id="add_not_null_with_default_value" author="aut">
+        <addNotNullConstraint columnDataType="VARCHAR(30)"
+        columnName="column_id"
+        tableName="goal2table"
+        defaultNullValue=""/>
+    </changeSet>
+</databaseChangeLog>
