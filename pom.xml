@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.github.nfalco79</groupId>
@@ -9,7 +7,7 @@
 	</parent>
 	<artifactId>liquibase-maven-plugin</artifactId>
 	<name>Liquibase Maven Plugin Extension</name>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
 	<url>https://github.com/nfalco79/liquibase-maven-plugin</url>
 
@@ -24,7 +22,8 @@
 		</connection>
 		<developerConnection>scm:git:git@github.com:nfalco79/liquibase-maven-plugin.git
 		</developerConnection>
-	</scm>
+	  <tag>1.0.0</tag>
+  </scm>
 
 	<properties>
 		<java.level>8</java.level>
