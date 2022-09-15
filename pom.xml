@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>liquibase-ext-maven-plugin</artifactId>
 	<name>Liquibase Maven Plugin Extension</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
 	<url>https://github.com/nfalco79/liquibase-ext-maven-plugin</url>
 
@@ -20,7 +20,8 @@
 		<url>https://github.com/nfalco79/liquibase-ext-maven-plugin</url>
 		<connection>scm:git:git@github.com:nfalco79/liquibase-ext-maven-plugin.git</connection>
 		<developerConnection>scm:git:git@github.com:nfalco79/liquibase-ext-maven-plugin.git</developerConnection>
-    </scm>
+      <tag>1.0.0</tag>
+  </scm>
 
 	<properties>
 		<java.level>8</java.level>
