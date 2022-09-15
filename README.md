@@ -1,4 +1,4 @@
-# liquibase-maven-plugin
+# liquibase-ext-maven-plugin
 
 This plugin is developed to help developers write liquibase scripts that are compatible with the most commonly used databases such as PostgreSQL, Oracle and IBM DB2.
 This plugin is also able to check (at compile time) if the scripts in the project are backwards compatible with respect to the previous (following semantic versioning) released version.
