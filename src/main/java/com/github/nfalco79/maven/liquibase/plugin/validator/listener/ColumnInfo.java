@@ -129,7 +129,9 @@ public class ColumnInfo implements IStorageInfo {
     }
 
     /**
-     * Return the column type without the length (e.g. VARCHAR(X) only VARCHAR)
+     * Return the column type without the length (e.g. VARCHAR(X) only VARCHAR).
+     * 
+     * @return column type without the length (e.g. VARCHAR(X) only VARCHAR)
      */
     public String getType() {
         return type;
