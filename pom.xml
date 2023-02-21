@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.nfalco79</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0.0-beta1</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>liquibase-ext-maven-plugin</artifactId>
     <name>Liquibase Maven Plugin Extension</name>
