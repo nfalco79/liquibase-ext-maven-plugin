@@ -16,10 +16,14 @@
 package com.github.nfalco79.maven.liquibase.plugin;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +47,6 @@ import com.github.nfalco79.maven.liquibase.plugin.validator.IChangeValidator;
 import com.github.nfalco79.maven.liquibase.plugin.validator.ValidationError;
 import com.github.nfalco79.maven.liquibase.plugin.validator.Validator;
 import com.github.nfalco79.maven.liquibase.plugin.validator.ValidatorFactory;
-import com.google.common.collect.Sets;
 
 import liquibase.change.Change;
 import liquibase.changelog.ChangeLogParameters;
@@ -52,7 +55,7 @@ import liquibase.changelog.DatabaseChangeLog;
 import liquibase.exception.LiquibaseException;
 import liquibase.parser.ChangeLogParser;
 import liquibase.parser.ChangeLogParserFactory;
-import liquibase.resource.FileSystemResourceAccessor;
+import liquibase.resource.DirectoryResourceAccessor;
 import liquibase.resource.ResourceAccessor;
 
 @Mojo(name = "validate", defaultPhase = LifecyclePhase.PROCESS_RESOURCES)
@@ -132,11 +135,11 @@ public class ValidateMojo extends AbstractMojo {
             return;
         }
 
-        Set<String> ignores = Sets.newHashSet(getIgnoreRules());
+        Set<String> ignores = new HashSet<>(getIgnoreRules());
         // check that includeChanges and excludeChanges does not overlaps
-        Set<String> include = Sets.newHashSet(getIncludeChanges());
-        Set<String> exclude = Sets.newHashSet(getExcludeChanges());
-        if (!Sets.intersection(include, exclude).isEmpty()) {
+        Set<String> include = new HashSet<>(Arrays.asList(getIncludeChanges()));
+        Set<String> exclude = new HashSet<>(Arrays.asList(getExcludeChanges()));
+        if (!Collections.disjoint(include, exclude)) {
             throw new MojoFailureException("Some changes are included in both includeChanges/excludeChanges");
         }
 
@@ -166,7 +169,11 @@ public class ValidateMojo extends AbstractMojo {
                 if (!changeLogFile.isFile()) {
                     continue;
                 }
-                ResourceAccessor resourceAccessor = new FileSystemResourceAccessor(changeLogFile.getParentFile());
+                File root = changeLogFile.getParentFile();
+                while (root.getParentFile() != null) {
+                    root = root.getParentFile();
+                }
+                ResourceAccessor resourceAccessor = new DirectoryResourceAccessor(root);
 
                 ChangeLogParser parser = parsers.get(ext);
                 if (parser == null) {
@@ -196,7 +203,7 @@ public class ValidateMojo extends AbstractMojo {
                     getLog().info("No violations found on " + changeLog);
                 }
             }
-        } catch (LiquibaseException e) {
+        } catch (FileNotFoundException | LiquibaseException e) {
             throw new MojoExecutionException("Unexpected excetion", e);
         }
 

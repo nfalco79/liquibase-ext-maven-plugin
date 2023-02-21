@@ -104,6 +104,9 @@ public class FilePathValidator implements IChangeLogValidator, IChangeSetValidat
             file = new File("/" + file.getPath());
         }
 
+        if (!file.getPath().startsWith(baseSourceDir.getPath())) {
+            file = file.getAbsoluteFile();
+        }
         String relativePath = baseSourceDir.toPath().relativize(file.toPath()).toString();
         return StringUtils.removeEnd(relativePath, String.valueOf(PATH_SEPARATOR)).replace(PATH_SEPARATOR, '.').replace(WINDOWS_PATH_SEPARATOR, '.');
     }

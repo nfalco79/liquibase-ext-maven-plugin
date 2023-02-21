@@ -401,9 +401,9 @@ public class ValidateMojoTest {
         String file = res.getFile();
         String source = file.substring(0, file.indexOf("liquibase/plugin") - 1);
 
-        ValidateMojo mojo = spy(getMojo(new File(source)));
+        ValidateMojo mojo = getMojo(new File(source));
         mojo.setFailOnError(false);
-        doReturn(log).when(mojo).getLog();
+        mojo.setLog(log);
         Map<String, String> configMap = new HashMap<>();
         configMap.put("filePath.suffix", "suff");
         mojo.setConfigMap(configMap);

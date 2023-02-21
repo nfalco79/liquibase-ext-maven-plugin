@@ -17,7 +17,6 @@ package com.github.nfalco79.maven.liquibase.plugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.integration.commandline.CommandLineUtils;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.CompositeResourceAccessor;
-import liquibase.resource.FileSystemResourceAccessor;
+import liquibase.resource.DirectoryResourceAccessor;
 import liquibase.resource.ResourceAccessor;
 
 /**
@@ -283,17 +282,20 @@ public class UpdateSQLMojo extends MergeChangeLogsMojo {
                 root = root.getParentFile();
             }
             File rootFolder = liquibaseScript.getParentFile().getAbsoluteFile();
-            Liquibase liquibase = new Liquibase(liquibaseScript.getName(), buildResourceAccessor(rootFolder), database);
+            Liquibase liquibase = new Liquibase(liquibaseScript.getName(), buildResourceAccessor(rootFolder, root), database);
             liquibase.update(new Contexts());
-        } catch (MalformedURLException | LiquibaseException e) {
+        } catch (IOException | LiquibaseException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private ResourceAccessor buildResourceAccessor(File root) throws MalformedURLException {
-        ResourceAccessor fileAccessor = new FileSystemResourceAccessor(root);
-        ResourceAccessor classloaderAccessor = new ClassLoaderResourceAccessor(new URLClassLoader(new URL[] { root.toURI().toURL() }));
-        ResourceAccessor resourceAccessor = new CompositeResourceAccessor(classloaderAccessor, fileAccessor);
+    private ResourceAccessor buildResourceAccessor(File ... roots) throws IOException {
+        CompositeResourceAccessor resourceAccessor = new CompositeResourceAccessor();
+        for (File root : roots) {
+            resourceAccessor.addResourceAccessor(new DirectoryResourceAccessor(root));
+            resourceAccessor.addResourceAccessor(new ClassLoaderResourceAccessor(new URLClassLoader(new URL[] { root.toURI().toURL() })));
+        }
+
         return resourceAccessor;
     }
 
