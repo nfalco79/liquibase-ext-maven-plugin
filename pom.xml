@@ -30,6 +30,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.nfalco79</groupId>
             <artifactId>maven-commons</artifactId>
             <version>1.0.0</version>
@@ -127,7 +132,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.6.4</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

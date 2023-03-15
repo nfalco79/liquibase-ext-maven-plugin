@@ -20,17 +20,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+
 import com.github.nfalco79.maven.liquibase.plugin.util.LiquibaseUtil;
 import com.github.nfalco79.maven.liquibase.plugin.validator.ValidationContext;
 import com.github.nfalco79.maven.liquibase.plugin.validator.ValidationError;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 
 public class RuleEngine {
-    private Multimap<IRule, ValidationContext> rules;
+    private MultiValuedMap<IRule, ValidationContext> rules;
 
     public RuleEngine() {
-        rules = MultimapBuilder.hashKeys().linkedHashSetValues().build();
+        rules = new HashSetValuedHashMap<>();
     }
 
     public void add(IRule rule, ValidationContext... contexts) {
