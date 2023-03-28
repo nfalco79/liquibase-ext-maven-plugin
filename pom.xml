@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.github.nfalco79</groupId>
             <artifactId>maven-commons</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.dom4j</groupId>

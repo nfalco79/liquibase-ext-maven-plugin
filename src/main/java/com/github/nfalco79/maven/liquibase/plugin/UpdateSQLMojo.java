@@ -30,6 +30,7 @@ import java.util.logging.Level;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.ArtifactUtils;
@@ -53,7 +54,6 @@ import org.apache.maven.shared.artifact.filter.resolve.ScopeFilter;
 import org.apache.maven.shared.artifact.filter.resolve.TransformableFilter;
 import org.apache.maven.shared.artifact.filter.resolve.transform.EclipseAetherFilterTransformer;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.collection.CollectRequest;
 import org.eclipse.aether.graph.Dependency;
@@ -118,15 +118,18 @@ public class UpdateSQLMojo extends MergeChangeLogsMojo {
     @Parameter(property = "ext.liquibase.backwardCompatibility.skip", defaultValue = "true")
     private boolean skipBackwardCompatibility = true;
 
+    /**
+     * Project types which this plugin supports.
+     */
+    @Parameter
+    private List<String> supportedProjectTypes = Arrays.asList("jar", "bundle", "war", "ear");
+
     @SuppressWarnings("deprecation")
     @Component
     protected org.apache.maven.artifact.metadata.ArtifactMetadataSource artifactMetadataSource; // NOSONAR
 
     @Component
     protected ArtifactHandlerManager artifactHandlerManager;
-
-    @Component
-    protected ArtifactResolver artifactResolver;
 
     @Inject
     protected RepositorySystem repositorySystem;
@@ -152,6 +155,13 @@ public class UpdateSQLMojo extends MergeChangeLogsMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (isSkip()) {
             getLog().info("Skip liquibase update SQL per configuration");
+            return;
+        }
+
+        String projectType = getProject().getPackaging();
+        // ignore unsupported project types, useful when plugin is configured in parent pom
+        if (!supportedProjectTypes.contains(projectType)) {
+            getLog().debug("Ignoring project type " + projectType + " - supportedProjectTypes = " + supportedProjectTypes);
             return;
         }
 
@@ -334,6 +344,14 @@ public class UpdateSQLMojo extends MergeChangeLogsMojo {
 
     public void setBackwardCompatibilityVersion(String backwardCompatibilityVersion) {
         this.backwardCompatibilityVersion = backwardCompatibilityVersion;
+    }
+
+    public List<String> getSupportedProjectTypes() {
+        return supportedProjectTypes;
+    }
+
+    public void setSupportedProjectTypes(List<String> supportedProjectTypes) {
+        this.supportedProjectTypes = CollectionUtils.isEmpty(supportedProjectTypes) ? Collections.emptyList() : supportedProjectTypes;
     }
 
 }

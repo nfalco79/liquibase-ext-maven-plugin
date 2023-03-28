@@ -54,6 +54,7 @@ import org.apache.maven.shared.artifact.filter.ScopeArtifactFilter;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
+import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
 import org.apache.maven.shared.utils.io.DirectoryScanner;
 import org.apache.maven.shared.utils.io.MatchPatterns;
 import org.apache.maven.shared.utils.xml.PrettyPrintXMLWriter;
@@ -139,6 +140,9 @@ public class MergeChangeLogsMojo extends AbstractMojo {
     @Component
     protected DependencyGraphBuilder dependencyGraphBuilder;
 
+    @Component
+    protected ArtifactResolver artifactResolver;
+
     public MavenProject getProject() {
         return project;
     }
@@ -187,7 +191,7 @@ public class MergeChangeLogsMojo extends AbstractMojo {
     }
 
     protected String[] getDefaultChangeLogsMaster() {
-        return replaceSeparator("**/db.changelog-master.xml", "**/data.changelog-master.xml");
+        return replaceSeparator("**/db.changelog-master.xml", "**/db.changelog-root.xml", "**/data.changelog-master.xml", "**/data.changelog-root.xml");
     }
 
     public String[] getChangeLogs() {
@@ -303,7 +307,7 @@ public class MergeChangeLogsMojo extends AbstractMojo {
                 .setIncludeSystemScope(false) //
                 .setIncludeProvidedScope(false), //
                 new TypeFiler("jar")));
-        DependencyResolver resolver = new DependencyResolver(session, project, dependencyGraphBuilder, filter, getLog());
+        DependencyResolver resolver = new DependencyResolver(session, project, dependencyGraphBuilder, filter, getLog(), artifactResolver);
         DependencyNode rootNode = resolver.resolveDependencies(getMaxAttemptsToResolveDependencies());
 
         BottomUpDependencyVisitor visitor = new BottomUpDependencyVisitor();
@@ -429,7 +433,7 @@ public class MergeChangeLogsMojo extends AbstractMojo {
 
     /**
      * Return the max number of attempts to resolve the dependency tree.
-     * 
+     *
      * @return the max number of attempts
      */
     public int getMaxAttemptsToResolveDependencies() {
@@ -438,7 +442,7 @@ public class MergeChangeLogsMojo extends AbstractMojo {
 
     /**
      * Set the max number of attempts to resolve the dependency tree.
-     * 
+     *
      * @param maxAttemptsToResolveDependencies the max number of attempts
      */
     public void setMaxAttemptsToResolveDependencies(int maxAttemptsToResolveDependencies) {
